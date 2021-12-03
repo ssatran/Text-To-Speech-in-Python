@@ -1,0 +1,37 @@
+from tkinter import *
+from gtts import gTTS
+from playsound import playsound
+
+root = Tk()
+root.geometry("350x300")
+root.configure(bg ="ghost white")
+root.title ("TEXT TO SPEECH")
+
+Label(root, text = "Text To Speech", bg = "White Smoke").pack()
+Label(root, text = "DATAFLAIR", font = "Arial 15 bold", bg = "white smoke", width = "20").pack(side = "bottom")
+Msg = StringVar()
+Label(root, text = "Enter Text", font = "Arial 10", bg = "white smoke").place(x=20,y=60)
+entry_field = Entry(root, textvariable = Msg, width = "50", bg = "White Smoke")
+entry_field.place(x=20, y=100)
+
+# Create a function
+def TTS():
+    txt = entry_field.get()
+    speech = gTTS(text = txt)
+    speech.save("tts.mp3")
+    playsound("tts.mp3")
+
+# Function to exit
+def exit():
+    root.destroy()
+
+# Function to Reset
+def reset():
+    Msg.set("")
+
+# Define Buttons
+Button(root, text = "Play", font = "Arial 10 bold", bg = "green", width = "10", command = TTS).place(x=20, y=135)
+Button(root, text = "Reset", font = "Arial 10 bold", bg = "Yellow", width = "10", command = reset).place(x=120, y=135)
+Button(root, text = "Exit", font = "Arial 10 bold", bg = "Red", width = "10", command = exit).place(x=220, y=135)
+
+root.mainloop()
